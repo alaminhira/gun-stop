@@ -6,7 +6,8 @@ const Gun = (props) => {
     const {addToCart, gun} = props;
     return (
         <div className="card bg-base-100 shadow-xl">
-            <figure><img className='w-full h-64' src={img} alt={category} /></figure>
+            {/* Src should be replaced later */}
+            <figure><img className='w-full h-64' src={''} alt={category} /></figure>
             <div className="card-body">
                 <h2 className="card-title">
                 {name}
