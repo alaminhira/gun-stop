@@ -8,8 +8,9 @@ const CartItem = props => {
             <div className="card-body">
                 <h2 className="card-title">{item.name}</h2>
                 <p>{item.action}</p>
-                <div className="card-actions justify-end">
-                <button className="btn btn-primary">${item.price}</button>
+                <div className="card-actions justify-end flex items-center">
+                    <p>Quantity: <span className='border px-2 py-1 ml-1'>{item.quantity}</span></p>
+                    <button className="btn btn-primary">${item.price * item.quantity}</button>
                 </div>
             </div>
         </div>

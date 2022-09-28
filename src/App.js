@@ -1,71 +1,38 @@
-import { useEffect } from 'react';
 import { useState } from 'react';
 import './App.css';
 import AllGuns from './components/AllGuns/AllGuns';
 import CartModal from './components/CartModal/CartModal';
 import Navbar from './components/Navbar/Navbar';
-import addToDb from './utilities/fakedb';
+// import addToDb from './utilities/fakedb';
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
-  // const oldCartItems = getFromDb();
-  
-  // const addToCart = gunItem => {
-    
-  //   if (gunItem) {
-  //       const isOnCart = cartItems.some(item => item.id === gunItem.id);
-  //       if (isOnCart) {
-  //         console.log('yes')
-  //         return
-  //       } else {
-  //         const newCart = [...cartItems, gunItem];
-  //         setCartItems(newCart);
-  //       }
-  //     }
-  //   }
 
   const addToCart = gunItem => {
-     const product = {
-      name: gunItem,
-      quantity: 1
-    }
+    const selectedItem = cartItems.find(item => item.id === gunItem.id);
+    const restItems = cartItems.filter(item => item.id !== gunItem.id);
 
-    const isOnCart = cartItems.some(item => item.name.id === product.name.id);
-
+    // When item is already in the cart
     let newCart = null;
-    if (isOnCart) {
-      product.quantity++;
-      newCart = [...cartItems, product];
-      console.log(product.quantity);
+    if (selectedItem) {
+      selectedItem.quantity++;
+      newCart = [...restItems, selectedItem];
+
+      // When item in new on the cart
     } else {
-      newCart = [...cartItems, product];
+      gunItem.quantity = 1;
+      newCart = [...restItems, gunItem];
     }
-    // else {
-      // }
+
     setCartItems(newCart);
-    addToDb(product);
-    
-    // console.log(cartItems)
-    // console.log(isOnCart);
-
-    // setCartItems(product);
-
-
-    // if (gunItem) {
-    //   const isOnCart = cartItems.some(item => item.id === gunItem.id);
-    //   if (isOnCart) {
-    //     console.log('yes')
-    //     return
-    //   } else {
-    //     const newCart = [...cartItems, gunItem];
-    //     setCartItems(newCart);
-    //   }
-    // }
   }
-  // addToCart();
+
+  
+  
+  
   return (
     <div className="App">
-      <Navbar gunCount={cartItems.length} />
+      <Navbar cartItems={cartItems} />
       <AllGuns addToCart={addToCart}/>
       <CartModal cartItems={cartItems} />
     </div>
